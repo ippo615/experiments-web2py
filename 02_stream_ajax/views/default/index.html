@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<title>web2py ajax streaming example</title>
+		<style type='text/css'>
+			.panel {border: 1px solid #CCC; width: 640px; margin: auto; border-radius: 4px;}
+			.panel-title {background-color: #EEE; padding: 0.4em;}
+			.panel-content { padding: 0.8em; }
+		</style>
+	</head>
+	<body>
+		<div class='panel'>
+			<div class='panel-title'>{{=T('Streaming content:')}}</div>
+			<div class='panel-content' id='output'></div>
+		</div>
+
+	<script type='text/javascript'>
+// Function for getting a ajax object in any browser
+function Request() {
+	if (window.XMLHttpRequest) { // Mozilla, Safari, ...
+		httpRequest = new XMLHttpRequest();
+	} else if (window.ActiveXObject) { // IE
+		try {
+			httpRequest = new ActiveXObject("Msxml2.XMLHTTP");
+		} 
+		catch (e) {
+			try {
+				httpRequest = new ActiveXObject("Microsoft.XMLHTTP");
+			} 
+			catch (e) {}
+		}
+	}
+	return httpRequest;
+}
+
+// Starts getting content from url - everytime new content is shared
+// the onUpdate function is called.
+function stream(url,onUpdate){
+	var request = Request();
+	if (!request) {
+		alert('Cannot create an XMLHTTP instance');
+		return false;
+	}
+	request.onreadystatechange = function(){
+		onUpdate(request);
+	};
+	request.open('GET', url);
+	request.send();
+	return request;
+}
+
+// Custom function to update the page when I start a stream
+function updatePage(response){
+	document.getElementById('output').innerHTML = response.responseText;
+}
+// When the page loads - open the stream to get the other content
+onload = function(){
+	stream("{{=URL('run_job')}}",updatePage);
+};
+	</script>
+	</body>
+</html>
