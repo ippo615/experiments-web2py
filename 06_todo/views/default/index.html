@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<title>web2py chat example</title>
+		<style type='text/css'>
+			.panel {border: 1px solid #CCC; width: 640px; margin: 0.5em auto; border-radius: 4px;}
+			.panel-title {background-color: #EEE; padding: 0.4em;}
+			.panel-content { padding: 0.8em; }
+
+			label {display: block;}
+		</style>
+	</head>
+	<body>
+		<div class='panel'>
+			<div class='panel-title'>{{=T('Add a new task')}}</div>
+			<div class='panel-content'>
+			  {{=form.custom.begin}}
+				<!-- input id='TABLE_NAME' name='NAME' -->
+				<label for='messages_task'>{{=T('Task')}}</label>
+				<input id='messages_task' name='task' class='string' type='text' />
+				<br/>
+				<input id="btnSend" class="btn" type="submit" value="{{=T('Send Message')}}" />
+			  {{=form.custom.end}}
+			</div>
+		</div>
+
+		<div class='panel'>
+			<div class='panel-title'>{{=T('To Do:')}}</div>
+			<div class='panel-content'>
+				{{for row in rows:}}
+				  <p><a href='{{=URL('default','delete',args=[row.id])}}'>{{=row.task}}</a></p>
+				{{pass}}
+			</div>
+		</div>
+	</body>
+</html>
+
+
