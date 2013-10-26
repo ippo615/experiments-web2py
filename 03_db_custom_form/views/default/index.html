@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<title>web2py chat example</title>
+		<style type='text/css'>
+			.panel {border: 1px solid #CCC; width: 640px; margin: 0.5em auto; border-radius: 4px;}
+			.panel-title {background-color: #EEE; padding: 0.4em;}
+			.panel-content { padding: 0.8em; }
+
+			label {display: block;}
+		</style>
+	</head>
+	<body>
+		<div class='panel'>
+			<div class='panel-title'>{{=T('Post a new entry')}}</div>
+			<div class='panel-content'>
+			  {{=form.custom.begin}}
+				<!-- input id='TABLE_NAME' name='NAME' -->
+				<label for='messages_author'>{{=T('Author')}}</label>
+				<input id='messages_author' name='author' class='string' type='text' />
+				<label for='messages_body'>{{=T('Body')}}</label>
+				<textarea id='messages_body' name='body' class='string' ></textarea>
+				<br/>
+				<input id="btnSend" class="btn" type="submit" value="{{=T('Send Message')}}" />
+			  {{=form.custom.end}}
+			</div>
+		</div>
+
+		<div class='panel'>
+			<div class='panel-title'>{{=T('Messages:')}}</div>
+			<div class='panel-content'>
+				{{for row in rows:}}
+				  <p>{{=row.author}}: {{=row.body}}</p>
+				{{pass}}
+			</div>
+		</div>
+	</body>
+</html>
+
+
